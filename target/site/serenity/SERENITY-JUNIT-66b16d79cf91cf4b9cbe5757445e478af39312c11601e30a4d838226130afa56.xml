@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="Register successfully" skipped="0" tests="1" time="11.69" timestamp="2025-01-20 08:29:58"><testcase name="Register"><failure message="Expected enabled element was not enabled" type="net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException">Expected enabled element was not enabled</failure><system-err>Expected enabled element was not enabled&#13;
-com.utest.automation.tasks.Register.performAs(Register.java:26)&#13;
-com.utest.automation.stepdefinitions.RegisterStepDefinitions.IGoToTheRegistrationModule(RegisterStepDefinitions.java:37)&#13;
-cucumber.runner.Runner.runPickle(Runner.java:80)&#13;
-worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)&#13;
-worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)&#13;
-</system-err></testcase></testsuite>
