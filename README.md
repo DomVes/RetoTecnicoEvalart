@@ -1,167 +1,43 @@
-# Reto Técnico Evalart - Automatización de Pruebas
+# Reto técnico Evalart
 
-## Descripción del Proyecto
-Este proyecto implementa una solución automatizada para el reto técnico de Evalart, que consiste en la resolución de una matriz dinámica de botones a través de múltiples ciclos. La automatización utiliza el patrón de diseño Screenplay y está construida con Serenity BDD y Cucumber.
+Este repositorio tiene dos proyectos independientes. Cada uno automatiza una prueba distinta del sitio de Evalart, con su propio Gradle, sus credenciales y su reporte.
 
-## Características Principales
-- Automatización completa del flujo de resolución de la matriz
-- Manejo dinámico de coordenadas y cálculos
-- Validación de resultados en cada ciclo
-- Captura y verificación del hash final
-- Implementación de mejores prácticas de automatización
-- Manejo robusto de errores y reintentos
+| Proyecto | Qué automatiza | Documentación |
+| --- | --- | --- |
+| `formulario` | Diez ciclos de un formulario con dos operaciones, una letra repetida y una fecha. | [formulario/README.md](formulario/README.md) |
+| `matriz` | Diez ciclos de una matriz de botones localizada por coordenadas, más la pregunta extra. | [matriz/README.md](matriz/README.md) |
 
-## Tecnologías Utilizadas
-- Java 8+
-- Serenity BDD
-- Cucumber
-- Selenium WebDriver
-- Gradle
-- Patrón de Diseño Screenplay
+Los dos comparten el mismo stack: Java 11, Gradle 7.4, Serenity BDD 2.0.80, Cucumber a través de `serenity-cucumber` 1.9.45, Selenium 3.141.59 y WebDriverManager 5.9.2. El detalle de versiones, la estructura y la forma de ejecutarlos está en el README de cada carpeta.
 
-## Estructura del Proyecto
-```
-src/
-├── main/
-│   └── java/
-│       └── com/
-│           └── evalart/
-│               └── automation/
-│                   ├── drivers/         # Configuración de WebDriver
-│                   ├── tasks/           # Tareas de automatización
-│                   ├── userinterface/   # Mapeo de elementos UI
-│                   └── utils/           # Utilidades generales
-└── test/
-    ├── java/
-    │   └── com/
-    │       └── evalart/
-    │           └── automation/
-    │               └── stepdefinitions/ # Definiciones de pasos
-    └── resources/
-        └── features/                    # Archivos feature de Cucumber
+La URL base está en la hoja `Dominios` de cada `Data.xlsx`:
+
+```text
+https://tasks.evalartapp.com/automatization/
 ```
 
-## Características Técnicas Destacadas
+Las credenciales no son las mismas. Cada `IniciarSesion.java` tiene las de su prueba, y el sitio abre el formulario o la matriz según ese acceso.
 
-### 1. Patrón Screenplay
-- Implementación clara de tareas y acciones
-- Separación de responsabilidades
-- Código mantenible y escalable
+## Resultados de la última ejecución
 
-### 2. Manejo de Estados
-- Control preciso de ciclos de ejecución
-- Almacenamiento y recuperación de estados
-- Validación continua de resultados
+| Prueba | Hash |
+| --- | --- |
+| Formulario | `c2fe0e21ce445033Mi00LTcxNTczNDE=df63afbf4da3d4b1` |
+| Matriz | `c2fe0e21ce445033My0zLTcxNTczNDE=df63afbf4da3d4b1` |
 
-### 3. Robustez
-- Manejo de excepciones
-- Reintentos automáticos
-- Tiempos de espera dinámicos
-- Validaciones exhaustivas
+Cada hash también quedó como evidencia en `target/site/serenity/index.html` dentro de su proyecto.
 
-### 4. Reportes
-- Generación automática de reportes Serenity
-- Logs detallados de ejecución
-- Capturas de pantalla en puntos clave
+## Cómo ejecutar
 
-## Requisitos Previos
-- Java JDK 8 o superior
-- Gradle 7.x o superior
-- Chrome Browser (versión compatible con ChromeDriver)
-- Acceso a Internet
+Cada comando se lanza dentro de su carpeta, porque `Data.xlsx` se lee con una ruta relativa.
 
-## Configuración del Proyecto
-
-1. Clonar el repositorio:
-```bash
-git clone [URL_DEL_REPOSITORIO]
+```bat
+cd formulario
+gradlew.bat test aggregate
 ```
 
-2. Instalar dependencias:
-```bash
-gradle clean build
+```bat
+cd matriz
+gradlew.bat test aggregate
 ```
 
-3. Configurar credenciales:
-- Crear archivo `Data.xlsx` en la carpeta de recursos
-- Agregar credenciales en la hoja "Dominios"
-
-## Ejecución de Pruebas
-
-### Ejecución completa:
-```bash
-gradle clean test aggregate
-```
-
-### Ejecución por tags:
-```bash
-gradle clean test -Dcucumber.options="--tags @tag"
-```
-
-## Estructura de Automatización
-
-### 1. Features
-Los escenarios están escritos en Gherkin, siguiendo el formato:
-```gherkin
-Característica: Automatizar el proceso de selección de botones en la matriz de Evalart
-  Como tester de automatización
-  Quiero resolver la matriz dinámica de botones
-  Para obtener el hash de éxito después de completar todos los ciclos
-
-  Escenario: Resolver matriz dinámica y obtener hash
-    Dado que estoy logueado en la pagina de la matriz
-    Cuando selecciono el boton correcto en la matriz y proceso la respuesta
-    Entonces deberia ver el hash de exito
-```
-
-### 2. Step Definitions
-- Implementación clara y concisa de los pasos
-- Manejo de estados entre pasos
-- Validaciones específicas
-
-### 3. Tasks
-- Modularización de acciones complejas
-- Reutilización de código
-- Mantenibilidad mejorada
-
-## Mejores Prácticas Implementadas
-
-1. **Clean Code**
-   - Nombres descriptivos
-   - Métodos concisos
-   - Responsabilidad única
-
-2. **Manejo de Datos**
-   - Externalización de credenciales
-   - Parametrización de valores
-   - Gestión segura de información sensible
-
-3. **Control de Calidad**
-   - Validaciones exhaustivas
-   - Manejo de casos borde
-   - Logs detallados
-
-4. **Mantenibilidad**
-   - Código documentado
-   - Estructura organizada
-   - Patrones de diseño
-
-## Resultados y Reportes
-Los reportes se generan en:
-```
-target/site/serenity/index.html
-```
-
-Incluyen:
-- Resumen de ejecución
-- Pasos detallados
-- Evidencias visuales
-- Métricas de ejecución
-
-## Contacto
-Desarrollado por [Tu Nombre]
-- Email: [tu.email@dominio.com]
-- LinkedIn: [URL_LinkedIn]
-
-## Licencia
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
+Hace falta JDK 11, Google Chrome y conexión a internet. ChromeDriver lo resuelve WebDriverManager.

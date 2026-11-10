@@ -1,5 +1,6 @@
 package com.evalart.automation.drivers;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -7,6 +8,8 @@ public class ChromeDriver {
     public static WebDriver driver;
 
     public static ChromeDriver ChromeWebDriver() {
+        WebDriverManager.chromedriver().setup();
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         options.addArguments("--allow-running-insecure-content --disable-popup-blocking --disable-dev-shm-usage");
